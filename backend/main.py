@@ -50,6 +50,7 @@ async def get_audio():
     message_decoded = convert_audio_to_text(audio_input)    
 
     print(message_decoded)
+    return "Done"
 #Post bot response
 #Note: not playing in the browser when using the post request
 # @app.post("/post-audio/")

@@ -12,13 +12,15 @@ openai.api_key = config("OPEN_AI_KEY")
 def convert_audio_to_text(audio_file):
     try:
         # transcript = openai.Audio.transcribe("whisper-1", audio_file)
-        transcript = openai.audio.translations.create(
-        model="whisper-1", 
-        file=audio_file
+        transcript = openai.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        response_format='text'
         )
-        message_text = transcript("text")
+        #print(transcript)
+       # message_text = transcript['data']['translations'][0]['text']
+        return transcript
        
-        return message_text
     except Exception as e:
         print(e)
-        return
+        return "this is an error"
