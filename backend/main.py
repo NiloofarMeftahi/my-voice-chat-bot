@@ -81,7 +81,7 @@ async def get_audio():
     #returtn audio
     return StreamingResponse(iterfile(), media_type="audio/mpeg")
 
-    return "Done"
+    #return "Done"
 #Post bot response
 #Note: not playing in the browser when using the post request
 # @app.post("/post-audio/")
