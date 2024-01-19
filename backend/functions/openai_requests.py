@@ -18,7 +18,7 @@ def convert_audio_to_text(audio_file):
         file=audio_file,
         response_format='text'
         )
-        #print(transcript)
+        print(transcript)
        # message_text = transcript['data']['translations'][0]['text']
         return transcript
        

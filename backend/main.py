@@ -31,7 +31,8 @@ origins = [
 #CORS - middlaeware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = origins,
+    # allow_origins = origins,
+    allow_origins = ["*"],
     allow_credentials = True,
     allow_methods = ["*"],
     allow_headers = ["*"],
@@ -49,11 +50,17 @@ async def reset_conversation():
     return {"message": "Conversation reset"}
 
 #get audio
-@app.get("/post-audio-get/")
-async def get_audio():
+# @app.get("/post-audio-get/")
+@app.post("/post-audio/")
+# async def get_audio():
+async def post_audio(file: UploadFile = File(...)):
+    # # Get saved audio
+    # audio_input = open("voice.mp3", "rb")
 
-    # Get saved audio
-    audio_input = open("voice.mp3", "rb")
+    # save file from front-end
+    with open(file.filename, "wb") as buffer:
+        buffer.write(file.file.read())
+    audio_input = open(file.filename, "rb")
     #Decode audio
     message_decoded = convert_audio_to_text(audio_input)    
     # gaurd message decoded
@@ -71,6 +78,7 @@ async def get_audio():
 
     #conver chat response to audio
     audio_output = convert_text_to_speech(chat_response)
+    print(chat_response)
      # gaurd message decoded
     if not message_decoded:
         return HTTPException(status_code=400, detail = "Failed to get eleven lans audio response")
@@ -79,7 +87,8 @@ async def get_audio():
     def iterfile():
         yield audio_output
     #returtn audio
-    return StreamingResponse(iterfile(), media_type="audio/mpeg")
+    # return StreamingResponse(iterfile(), media_type="audio/mpeg")
+    return StreamingResponse(iterfile(), media_type="application/octet-stream")
 
     #return "Done"
 #Post bot response
