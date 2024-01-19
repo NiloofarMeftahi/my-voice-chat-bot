@@ -18,6 +18,7 @@ def get_recent_messages():
         learn_instruction["content"] = learn_instruction["content"] + "Your responce will be supportive and encouraging"
     else:
          learn_instruction["content"] = learn_instruction["content"] + "Your responce will be challenging"
+    
     messages.append(learn_instruction)
     # get last messages
     try:
@@ -30,7 +31,7 @@ def get_recent_messages():
                     for item in data:
                         messages.append(item)
                 else:
-                    for item in data[-5]:
+                    for item in data[-5:]:
                         messages.append(item)
     except Exception as e:
         print(e)

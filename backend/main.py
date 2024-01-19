@@ -81,7 +81,7 @@ async def post_audio(file: UploadFile = File(...)):
     print(chat_response)
      # gaurd message decoded
     if not message_decoded:
-        return HTTPException(status_code=400, detail = "Failed to get eleven lans audio response")
+        return HTTPException(status_code=400, detail = "Failed to get eleven labs audio response")
     #creat a generator that yields chunks of data
 
     def iterfile():
